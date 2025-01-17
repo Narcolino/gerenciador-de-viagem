@@ -1,25 +1,29 @@
 @extends('layout')
 
-
 @section('content')
 
-<div style="width: 400px; margin: auto; text-align: center; border: 1px solid #000; padding: 30px; background-color: #f9f9f9;">
-    <h2 style="margin-bottom: 30px;">Tela Principal</h2>
-    <a href="{{ route('motorista.index') }}" style="display: block; margin-bottom: 15px;">
-        <button style="padding: 10px 20px; width: 100%; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px;">
-            Cadastro de Motoristas
-        </button>
-    </a>
-    <a href="{{ route('veiculos.index') }}" style="display: block; margin-bottom: 15px;">
-        <button style="padding: 10px 20px; width: 100%; background-color: #28a745; color: white; border: none; cursor: pointer; font-size: 16px;">
-            Cadastro de Carros
-        </button>
-    </a>
-    <a href="{{ route('viagens.index') }}" style="display: block;">
-        <button style="padding: 10px 20px; width: 100%; background-color: #ffc107; color: black; border: none; cursor: pointer; font-size: 16px;">
-            Cadastro de Viagens
-        </button>
-    </a>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-96 text-center p-6 bg-white rounded-lg shadow-lg border border-gray-300">
+        <h2 class="text-2xl font-bold mb-8">Tela Principal</h2>
+        
+        <a href="{{ route('motorista.index') }}" class="mb-4 block">
+            <button class="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+                Cadastro de Motoristas
+            </button>
+        </a>
+        
+        <a href="{{ route('veiculos.index') }}" class="mb-4 block">
+            <button class="w-full py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition">
+                Cadastro de Carros
+            </button>
+        </a>
+        
+        <a href="{{ route('viagens.index') }}" class="block">
+            <button class="w-full py-3 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition">
+                Cadastro de Viagens
+            </button>
+        </a>
+    </div>
 </div>
 
 @endsection

@@ -1,33 +1,43 @@
 @extends('layout')
 
 @section('content')
-<div style="width: 400px; margin: auto; border: 1px solid #000; padding: 20px; background-color: #f9f9f9;">
-    <h2 style="text-align: center; margin-bottom: 20px;">Cadastrar Motorista</h2>
-    <form action="{{ route('motorista.store') }}" method="POST">
-        @csrf
-        <div style="margin-bottom: 15px;">
-            <label for="nome" style="display: block; margin-bottom: 5px;">Nome</label>
-            <input type="text" id="nome" name="nome" style="width: 100%; padding: 10px; border: 1px solid #ccc;" required>
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-sm bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Cadastrar Motorista</h2>
+        <form action="{{ route('motorista.store') }}" method="POST" class="space-y-4">
+            @csrf
+            <!-- Nome -->
+            <div>
+                <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                <input type="text" id="nome" name="nome" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            <!-- Data de Nascimento -->
+            <div>
+                <label for="data_nasc" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
+                <input type="date" id="data_nasc" name="data_nasc" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            <!-- CNH -->
+            <div>
+                <label for="cnh" class="block text-sm font-medium text-gray-700 mb-1">CNH</label>
+                <input type="text" id="cnh" name="cnh" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            <!-- Botão Salvar -->
+            <button type="submit" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">Salvar</button>
+        </form>
+        
+        <!-- Botão Voltar -->
+        <div class="mt-4">
+            <button onclick="window.location.href='{{ route('motorista.index') }}'" 
+                class="w-full py-2 bg-gray-300 text-gray-800 font-medium rounded-md hover:bg-gray-400 transition">
+                Voltar
+            </button>
         </div>
-        <div style="margin-bottom: 15px;">
-            <label for="data_nasc" style="display: block; margin-bottom: 5px;">Data de Nascimento</label>
-            <input type="date" id="data_nasc" name="data_nasc" style="width: 100%; padding: 10px; border: 1px solid #ccc;" required>
+        
+        @if(session()->has('error'))
+        <div class="mt-4 p-4 bg-red-100 text-red-800 rounded-md">
+            {{ session()->get('error') }}
         </div>
-        <div style="margin-bottom: 15px;">
-            <label for="cnh" style="display: block; margin-bottom: 5px;">CNH</label>
-            <input type="text" id="cnh" name="cnh" style="width: 100%; padding: 10px; border: 1px solid #ccc;" required>
-        </div>
-        <button type="submit" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">Salvar</button>
-    </form>
-</div>  
-
-@if( session()->has('error') )
-    <div>
-        {{ session()->get('error')}} 
+        @endif
     </div>
-
-@endif
-
-<button onclick="window.location.href='{{ route('motorista.index') }}'" style="display: block; margin: 10px auto; width: 80%; padding: 10px;">Voltar</button>
-
+</div>
 @endsection
