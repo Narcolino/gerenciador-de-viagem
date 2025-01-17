@@ -34,7 +34,7 @@ services:
 
     db:
         image: postgres:15
-        container_name: laravel-db
+        container_name: entrevista_postgres
         restart: unless-stopped
         environment:
             POSTGRES_DB: entrevista
@@ -43,7 +43,7 @@ services:
         volumes:
             - dbdata:/var/lib/postgresql/data
         ports:
-            - "5439:5432"
+            - "5432:5432"
         networks:
             - laravel
 

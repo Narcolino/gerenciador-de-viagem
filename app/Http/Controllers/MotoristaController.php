@@ -48,6 +48,12 @@ class MotoristaController extends Controller
             ->when($request->filled('query') && $request->input('attribute') == 'nome', function($query) use ($request){
                 $query->where('nome', 'like', "%{$request->input('query')}%");
             })
+            ->when($request->filled('query') && $request->input('attribute') == 'cnh', function($query) use ($request){
+                $query->where('cnh', 'like', "%{$request->input('query')}%");
+            })
+            ->when($request->filled('query') && $request->input('attribute') == 'data_nasc', function($query) use ($request){
+                $query->where('data_nascimento', $request->input('query'));
+            })
             ->get();
 
             

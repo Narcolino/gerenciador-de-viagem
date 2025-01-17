@@ -3,46 +3,40 @@
 @section('content')
 <div style="width: 600px; margin: auto; text-align: left; border: 1px solid #000; padding: 30px; background-color: #f9f9f9;">
     <h2 style="text-align: center; margin-bottom: 30px;">Pesquisar Viagens</h2>
-    <form method="GET" action="{{ route('trips.index') }}">
+    <form method="GET" action="{{ route('viagens.pesquisa') }}">
+        <!-- Campo de Motorista -->
         <div class="mb-3">
-            <label for="driver_id" class="form-label">Motorista</label>
-            <select id="driver_id" name="driver_id" class="form-control">
+            <label for="motorista_id" class="form-label">Motorista</label>
+            <select id="motorista_id" name="motorista_id" class="form-control">
                 <option value="">Selecione um motorista</option>
-                @foreach($drivers as $driver)
-                    <option value="{{ $driver->id }}" {{ request('driver_id') == $driver->id ? 'selected' : '' }}>
-                        {{ $driver->name }}
+                @foreach($motoristas as $motorista)
+                    <option value="{{ $motorista->id }}" {{ request('motorista_id') == $motorista->id ? 'selected' : '' }}>
+                        {{ $motorista->nome }}
                     </option>
                 @endforeach
             </select>
         </div>
 
+        <!-- Campo de Veículo -->
         <div class="mb-3">
-            <label for="vehicle_id" class="form-label">Veículo</label>
-            <select id="vehicle_id" name="vehicle_id" class="form-control">
+            <label for="veiculo_id" class="form-label">Veículo</label>
+            <select id="veiculo_id" name="veiculo_id" class="form-control">
                 <option value="">Selecione um veículo</option>
-                @foreach($vehicles as $vehicle)
-                    <option value="{{ $vehicle->id }}" {{ request('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
-                        {{ $vehicle->model }} - {{ $vehicle->renavam }}
+                @foreach($veiculos as $veiculo)
+                    <option value="{{ $veiculo->id }}" {{ request('veiculo_id') == $veiculo->id ? 'selected' : '' }}>
+                        {{ $veiculo->modelo }} - {{ $veiculo->renavam }}
                     </option>
                 @endforeach
             </select>
         </div>
-
-        <div class="mb-3">
-            <label for="km_start" class="form-label">KM Inicial (mínimo)</label>
-            <input type="number" id="km_start" name="km_start" class="form-control" value="{{ request('km_start') }}" />
-        </div>
-
-        <div class="mb-3">
-            <label for="km_end" class="form-label">KM Final (máximo)</label>
-            <input type="number" id="km_end" name="km_end" class="form-control" value="{{ request('km_end') }}" />
-        </div>
-
+        
+        <!-- Botão de Pesquisa -->
         <button type="submit" class="btn btn-primary" style="width: 100%;">Pesquisar</button>
     </form>
 </div>
 
-<div class="mt-4">
+
+<<div class="mt-4">
     <h3>Resultados da Pesquisa</h3>
     <table class="table table-bordered">
         <thead>
@@ -55,14 +49,16 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($trips as $trip)
+            @forelse($viagens as $viagem)
                 <tr>
-                    <td>{{ $trip->driver->name }}</td>
-                    <td>{{ $trip->vehicle->model }} - {{ $trip->vehicle->renavam }}</td>
-                    <td>{{ $trip->km_start }}</td>
-                    <td>{{ $trip->km_end }}</td>
+                    <!-- Exibindo o nome do motorista -->
+                    <td>{{ $viagem->motorista->nome }}</td>
+                    <!-- Exibindo o modelo e renavam do veículo -->
+                    <td>{{ $viagem->veiculo->modelo . ' - ' . $viagem->veiculo->renavam }}</td>
+                    <td>{{ $viagem->km_inicial }}</td>
+                    <td>{{ $viagem->km_final }}</td>
                     <td>
-                        <form action="{{ route('trips.destroy', $trip->id) }}" method="POST" style="display:inline-block;">
+                        <form action="{{ route('viagens.destroy', $viagem->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
