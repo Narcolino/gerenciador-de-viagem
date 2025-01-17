@@ -28,6 +28,9 @@ class MotoristaController extends Controller
         if($data_nasc->age < 18){
             return redirect()->back()->with('error', 'Motorista menor de idade');
         }
+        if (Motorista::where('cnh', $request->input('cnh'))->exists()) {
+            return redirect()->back()->with('error', 'Motorista já cadastrado');
+        }
         $motorista->data_nascimento = $data_nasc;
         $motorista->save();
 
