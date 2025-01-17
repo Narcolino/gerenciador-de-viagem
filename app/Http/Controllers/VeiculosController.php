@@ -20,9 +20,13 @@ class VeiculosController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->input());
         $veiculos = new Veiculos();
         $veiculos->fill($request->input());
+
+        if (Veiculos::where('renavam', $request->input('renavam'))->exists()) {
+            return redirect()->back()->with('error', 'Veículo já cadastrado');
+        }
+
         $veiculos->save();
 
         return redirect()->route('veiculos.index')->with('success', 'Veículo cadastrado com sucesso');

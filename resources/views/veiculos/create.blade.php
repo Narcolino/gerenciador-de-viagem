@@ -31,4 +31,10 @@
         <button onclick="window.location.href='{{ route('veiculos.index') }}'" class="w-full mt-4 bg-gray-300 text-gray-800 py-2 rounded-md hover:bg-gray-400 transition">Voltar</button>
     </div>
 </div>
+
+@if(session()->has('error'))
+    <div class="mt-4 p-4 bg-red-100 text-red-800 rounded-md">
+        {{ session()->get('error') }}
+    </div>
+@endif
 @endsection
