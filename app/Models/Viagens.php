@@ -13,14 +13,15 @@ class Viagens extends Model{
         'veiculo_id'
     ];
 
-     // No modelo Viagens
-    public function motorista()
-    {
-        return $this->belongsTo(Motorista::class);
-    }
-
     public function veiculo()
     {
         return $this->belongsTo(Veiculos::class);
     }
+
+    public function motoristas()
+    {
+        return $this->belongsToMany(Motorista::class, 'motorista_viagem', 'viagem_id', 'motorista_id');
+    }
+    
+
 }
