@@ -43,7 +43,7 @@
         <table class="min-w-full table-auto bg-white shadow-md rounded-md">
             <thead>
                 <tr class="bg-gray-200">
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Motorista</th>
+                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Motoristas</th>
                     <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Veículo</th>
                     <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">KM Inicial</th>
                     <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">KM Final</th>
@@ -53,7 +53,7 @@
             <tbody>
                 @foreach($viagens as $viagem)
                     <tr>
-                        <td class="px-4 py-2">{{ $viagem->motorista->nome }}</td>
+                        <td class="px-4 py-2">{{ $viagem->motoristas->pluck('nome')}}</td>
                         <td class="px-4 py-2">{{ $viagem->veiculo->modelo . ' - ' . $viagem->veiculo->renavam }}</td>
                         <td class="px-4 py-2">{{ $viagem->km_inicial }}</td>
                         <td class="px-4 py-2">{{ $viagem->km_final }}</td>

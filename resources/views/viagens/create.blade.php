@@ -7,14 +7,15 @@
         @csrf
         <!-- Motorista -->
         <div class="mb-4">
-            <label for="motorista_id" class="block text-sm font-medium text-gray-700 mb-2">Motorista</label>
-            <select id="motorista_id" name="motorista_id" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
-                <option value="">Selecione um motorista</option>
+            <label for="motorista_id" class="block text-sm font-medium text-gray-700 mb-2">Motoristas</label>
+            <select id="motorista_id" name="motorista_id[]" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" multiple required>
                 @foreach($motoristas as $motorista)
                     <option value="{{ $motorista->id }}">{{ $motorista->nome }}</option>
                 @endforeach
             </select>
+            <small class="text-gray-500">Segure a tecla Ctrl para selecionar múltiplos motoristas.</small>
         </div>
+
 
         <!-- Veículo -->
         <div class="mb-4">

@@ -25,14 +25,17 @@ class ViagensController extends Controller
     public function store(Request $request)
     {
         //dd($request->input());
+
         $viagem = new Viagens();
-        $viagem->fill($request->input());
+        $viagem->fill($request->except('motorista_id'));
+        $viagem->save();
 
         $veiculo = Veiculos::find($request->input('veiculo_id'));
         $veiculo->km = $request->input('km_final');
-
-        $viagem->save();
         $veiculo->save();
+
+        $viagem->motoristas()->sync($request->input('motorista_id'));
+
         return redirect()->route('viagens.index')->with('success', 'Viagem cadastrada com sucesso');
 
     }
@@ -40,6 +43,11 @@ class ViagensController extends Controller
     public function destroy(Request $request, $id)
     {
         $viagem = Viagens::find($id);
+        $viagem->motoristas()->detach();
+
+        $viagem->veiculo->km = $viagem->km_inicial;
+        $viagem->veiculo->save();
+
         $viagem->delete();
         return redirect()->back()->with('success', 'Viagem excluída com sucesso');
     }   
@@ -52,10 +60,12 @@ class ViagensController extends Controller
         $veiculos = Veiculos::all();
     
         // Consultar as viagens, incluindo as relações com motorista e veiculo
-        $viagens = Viagens::with(['motorista', 'veiculo'])
+        $viagens = Viagens::with(['motoristas', 'veiculo'])
             ->when($request->filled('motorista_id'), function ($query) use ($request) {
                 // Filtra viagens pelo motorista selecionado
-                $query->where('motorista_id', $request->input('motorista_id'));
+                $query->whereHas('motoristas', function ($query) use ($request) {
+                    $query->where('motorista_id', $request->input('motorista_id'));
+                });
             })
             ->when($request->filled('veiculo_id'), function ($query) use ($request) {
                 // Filtra viagens pelo veículo selecionado
